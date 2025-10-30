@@ -4,13 +4,27 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
+const countries = [
+  { value: 'us', label: 'United States' },
+  { value: 'uk', label: 'United Kingdom' },
+  { value: 'ca', label: 'Canada' },
+  { value: 'au', label: 'Australia' },
+  { value: 'nz', label: 'New Zealand' },
+  { value: 'in', label: 'India' },
+  { value: 'sg', label: 'Singapore' },
+  { value: 'ae', label: 'UAE' },
+];
+
 const formSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Invalid email address'),
+  phone: z.string().min(10, 'Please enter a valid phone number'),
+  country: z.string().min(1, 'Please select your country'),
   message: z.string().min(10, 'Message must be at least 10 characters'),
 });
 
@@ -29,6 +43,8 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     defaultValues: {
       name: '',
       email: '',
+       phone: '',
+       country: '',
       message: '',
     },
   });
@@ -83,6 +99,43 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 </FormItem>
               )}
             />
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone Number</FormLabel>
+                        <FormControl>
+                          <Input placeholder="e.g. +1 555 555 555" {...field} />
+                        </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="country"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Country</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select your country" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {countries.map((country) => (
+                          <SelectItem key={country.value} value={country.value}>
+                            {country.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             <FormField
               control={form.control}
               name="message"
