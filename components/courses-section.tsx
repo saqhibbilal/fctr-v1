@@ -126,8 +126,8 @@ const courses = [
     title: "Data Engineering",
     description:
       "Learn the core principles of modern data engineering — from ETL design to cloud-based pipelines and distributed data processing.",
-    originalPrice: "$2,499",
-    price: "$1,099",
+    originalPrice: "$1,499",
+    price: "$999",
     duration: "3 Months",
     mode: "Instructor-guided",
     handsOn: "Pipeline building labs and data flow simulations across cloud environments",
