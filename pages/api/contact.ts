@@ -69,49 +69,53 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       </head>
       <body style="margin: 0; padding: 0; background-color: #f9fafb; font-family: Arial, sans-serif;">
         <div class="content" style="max-width: 620px; margin: 0 auto; padding: 20px;">
-          <div style="background-color: white; border-radius: 8px; padding: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            <!-- Header -->
-            <div style="text-align: center; margin-bottom: 30px;">
-              <h1 style="color: #0f172a; margin: 0; font-size: 24px; font-weight: 600;">New Contact Inquiry</h1>
-              <p style="color: #64748b; margin-top: 8px;">A new inquiry has been received from the contact form.</p>
+          <div style="background-color: white; border-radius: 8px; padding: 0; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+            <!-- Branded header -->
+            <div style="background: linear-gradient(90deg, #7c4585 0%, #c95792 50%, #f8b55f 100%); padding: 20px; text-align: center;">
+              <h1 style="color: #fff; margin: 0; font-size: 22px; font-weight: 700;">Fusion Cloud Trainings</h1>
+              <p style="color: rgba(255,255,255,0.9); margin: 6px 0 0; font-size: 13px;">New Contact Inquiry</p>
             </div>
-            
-            <!-- Content -->
-            <div style="margin-bottom: 30px;">
-              <div style="margin-bottom: 20px; padding: 15px; background-color: #f8fafc; border-radius: 6px;">
+            <div style="padding: 24px;">
+              <!-- Intro -->
+              <div style="text-align: center; margin-bottom: 18px;">
+                <p style="color: #475569; margin: 0;">A new inquiry has been received from the contact form.</p>
+              </div>
+
+              <!-- Content -->
+              <div style="margin-bottom: 18px; padding: 12px; background-color: #fbfbfd; border-radius: 6px;">
                 <table style="width: 100%; border-collapse: collapse;">
                   <tr style="margin-bottom: 12px; display: block;">
-                    <td style="color: #475569; font-size: 14px; width: 100px;">Name:</td>
+                    <td style="color: #7c4585; font-size: 14px; width: 110px; font-weight: 600;">Name:</td>
                     <td style="color: #0f172a; font-weight: 500;">${name}</td>
                   </tr>
                   <tr style="margin-bottom: 12px; display: block;">
-                    <td style="color: #475569; font-size: 14px;">Email:</td>
+                    <td style="color: #7c4585; font-size: 14px; font-weight: 600;">Email:</td>
                     <td style="color: #0f172a; font-weight: 500;">${email}</td>
                   </tr>
                   <tr style="margin-bottom: 12px; display: block;">
-                    <td style="color: #475569; font-size: 14px;">Number:</td>
+                    <td style="color: #7c4585; font-size: 14px; font-weight: 600;">Number:</td>
                     <td style="color: #0f172a; font-weight: 500;">${number}</td>
                   </tr>
                   <tr style="margin-bottom: 12px; display: block;">
-                    <td style="color: #475569; font-size: 14px;">Country:</td>
+                    <td style="color: #7c4585; font-size: 14px; font-weight: 600;">Country:</td>
                     <td style="color: #0f172a; font-weight: 500;">${country}</td>
                   </tr>
                   <tr style="margin-bottom: 12px; display: block;">
-                    <td style="color: #475569; font-size: 14px;">Subject:</td>
+                    <td style="color: #7c4585; font-size: 14px; font-weight: 600;">Subject:</td>
                     <td style="color: #0f172a; font-weight: 500;">${subject}</td>
                   </tr>
                 </table>
               </div>
-              
-              <div style="background-color: #f8fafc; border-radius: 6px; padding: 15px;">
+
+              <div style="background-color: #fbfbfd; border-radius: 6px; padding: 14px;">
                 <p style="color: #475569; font-size: 14px; margin: 0 0 8px 0;">Message:</p>
                 <p style="color: #0f172a; margin: 0; white-space: pre-wrap;">${inquiry}</p>
               </div>
             </div>
-            
+
             <!-- Footer -->
-            <div style="text-align: center; padding-top: 20px; border-top: 1px solid #e2e8f0;">
-              <p style="color: #64748b; font-size: 14px; margin: 0;">
+            <div style="text-align: center; padding: 14px; background-color: #fff; border-top: 1px solid rgba(0,0,0,0.03);">
+              <p style="color: #64748b; font-size: 13px; margin: 0;">
                 © ${new Date().getFullYear()} Fusion Cloud Trainings. All rights reserved.
               </p>
             </div>

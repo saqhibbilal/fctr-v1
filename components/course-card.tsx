@@ -10,6 +10,8 @@ interface Course {
   price: string
   duration: string
   mode: string
+  // optional registration URL for external registration link
+  registerUrl?: string
 }
 
 export default function CourseCard({

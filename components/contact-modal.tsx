@@ -55,6 +55,7 @@ const formSchema = z.object({
     .min(10, 'Message must be at least 10 characters')
     .max(1000, 'Message must be less than 1000 characters')
     .refine((val) => val.trim().length > 0, 'Message cannot be empty'),
+  subject: z.string().min(1, 'Please select a subject'),
 });
 
 type ContactFormValues = z.infer<typeof formSchema>;
@@ -74,6 +75,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
       email: '',
        phone: '',
        country: '',
+      subject: '',
       message: '',
     },
   });
@@ -89,7 +91,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
           email: data.email,
           number: data.phone,
           country: countries.find(c => c.value === data.country)?.label || data.country,
-          subject: 'Contact Form Inquiry',
+          subject: data.subject,
           inquiry: data.message,
         }),
       });
@@ -124,25 +126,25 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle>Contact Us</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-xl">Contact Us</DialogTitle>
+          <DialogDescription className="text-sm">
             Fill out the form below and we'll get back to you as soon as possible.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 text-sm">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel className="text-sm">Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Your name" {...field} />
+                    <Input className="text-sm" placeholder="Your name" {...field} />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-xs" />
                 </FormItem>
               )}
             />
@@ -213,6 +215,30 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   </FormItem>
                 )}
               />
+            <FormField
+              control={form.control}
+              name="subject"
+              render={({ field }) => (
+                <FormItem className="space-y-1">
+                  <FormLabel>Subject</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger className="w-full bg-background">
+                        <SelectValue placeholder="Select subject" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="Industrial training">Industrial training</SelectItem>
+                      <SelectItem value="Request for Quote">Request for Quote</SelectItem>
+                      <SelectItem value="Services">Services</SelectItem>
+                      <SelectItem value="Courses">Courses</SelectItem>
+                      <SelectItem value="Other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="message"

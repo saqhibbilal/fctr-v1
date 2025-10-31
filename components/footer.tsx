@@ -37,6 +37,17 @@ export default function Footer({
                   Courses
                 </button>
               </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      const element = document.getElementById("services")
+                      element?.scrollIntoView({ behavior: "smooth" })
+                    }}
+                    className="hover:text-primary transition-colors"
+                  >
+                    Services
+                  </button>
+                </li>
               <li>
                 <button
                   onClick={() => {
