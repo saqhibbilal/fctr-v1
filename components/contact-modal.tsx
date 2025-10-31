@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
+import { toast } from '@/hooks/use-toast';
 
 const countries = [
   { value: 'us', label: 'United States' },
@@ -23,7 +24,7 @@ const countries = [
 const formSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Invalid email address'),
-  phone: z.string().min(10, 'Please enter a valid phone number'),
+  phone: z.string().min(7, 'Please enter a valid phone number'),
   country: z.string().min(1, 'Please select your country'),
   message: z.string().min(10, 'Message must be at least 10 characters'),
 });
@@ -52,11 +53,39 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const onSubmit = async (data: ContactFormValues) => {
     setIsSubmitting(true);
     try {
-      // TODO: Implement your form submission logic here
-      console.log('Form submitted:', data);
-      onClose();
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          number: data.phone,
+          country: countries.find(c => c.value === data.country)?.label || data.country,
+          subject: 'Contact Form Inquiry',
+          inquiry: data.message,
+        }),
+      });
+      if (response.ok) {
+        toast({
+          title: 'Message sent!',
+          description: 'Your inquiry has been sent successfully. We will get back to you soon.',
+        });
+        form.reset();
+        onClose();
+      } else {
+        const err = await response.json();
+        toast({
+          title: 'Error',
+          description: err.error || 'Failed to send your message. Please try again later.',
+          variant: 'destructive',
+        });
+      }
     } catch (error) {
-      console.error('Error submitting form:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to send your message. Please try again later.',
+        variant: 'destructive',
+      });
     } finally {
       setIsSubmitting(false);
     }
