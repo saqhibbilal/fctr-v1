@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { Clock, GraduationCap } from "lucide-react"
 
 interface Course {
   title: string
@@ -45,12 +46,12 @@ export default function CourseCard({
 
           {/* Duration and Mode */}
           <div className="flex gap-4 mb-6 text-xs">
-            <div className="flex items-center gap-1">
-              <span className="text-primary">⏱</span>
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-primary" />
               <span className="text-muted-foreground">{course.duration}</span>
             </div>
-            <div className="flex items-center gap-1">
-              <span className="text-secondary">👨‍🏫</span>
+            <div className="flex items-center gap-2">
+              <GraduationCap className="w-4 h-4 text-secondary" />
               <span className="text-muted-foreground">{course.mode}</span>
             </div>
           </div>

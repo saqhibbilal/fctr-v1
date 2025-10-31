@@ -13,7 +13,6 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: "Fusion Cloud Trainings - Enterprise Cloud & AI Courses",
   description: "Professional training in Oracle Cloud, AI, Data Engineering, and Business Solutions",
-  generator: "v0.app",
 }
 
 export default function RootLayout({

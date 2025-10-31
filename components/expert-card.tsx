@@ -1,7 +1,8 @@
+
 "use client"
 
-import { useState } from "react"
-import { Linkedin, Twitter, Facebook } from "lucide-react"
+import { useState, useRef, useEffect } from "react"
+import { Linkedin } from "lucide-react"
 
 interface Expert {
   name: string
@@ -17,7 +18,7 @@ export default function ExpertCard({ expert }: { expert: Expert }) {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
-    <div className="group" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+    <div className="group h-full" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       <div className="relative bg-card border border-border rounded-xl p-6 hover:border-primary/50 transition-all duration-300 h-full flex flex-col">
         {/* Avatar with initials */}
         <div
@@ -32,10 +33,17 @@ export default function ExpertCard({ expert }: { expert: Expert }) {
         <h3 className="text-lg font-bold text-foreground mb-1">{expert.name}</h3>
         <p className="text-sm text-accent font-semibold mb-3">{expert.title}</p>
 
-        {/* Bio */}
-        <p className="text-sm text-muted-foreground mb-6 flex-1 line-clamp-3">{expert.bio}</p>
+        {/* Bio - fixed height, scrollable */}
+        <div className="relative mb-6 flex-1">
+          <div
+            className="text-xs text-muted-foreground break-words overflow-auto pr-1"
+            style={{ minHeight: '5rem', maxHeight: '8rem' }}
+          >
+            <p className="m-0 whitespace-pre-line">{expert.bio}</p>
+          </div>
+        </div>
 
-        {/* Social Links */}
+        {/* Social Links - only LinkedIn */}
         <div className="flex gap-3 pt-4 border-t border-border">
           <a
             href={expert.linkedin}
@@ -44,22 +52,6 @@ export default function ExpertCard({ expert }: { expert: Expert }) {
             className="p-2 hover:bg-primary/20 text-muted-foreground hover:text-primary transition-all duration-300"
           >
             <Linkedin className="w-5 h-5" />
-          </a>
-          <a
-            href={expert.twitter}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 hover:bg-secondary/20 text-muted-foreground hover:text-secondary transition-all duration-300"
-          >
-            <Twitter className="w-5 h-5" />
-          </a>
-          <a
-            href={expert.facebook}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 hover:bg-accent/20 text-muted-foreground hover:text-accent transition-all duration-300"
-          >
-            <Facebook className="w-5 h-5" />
           </a>
         </div>
       </div>

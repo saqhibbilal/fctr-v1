@@ -100,7 +100,7 @@ export default function Footer({
         {/* Social Media */}
         <div className="flex justify-center gap-6 mb-8">
           <a
-            href="https://linkedin.com/company/fusion-cloud"
+            href="https://www.linkedin.com/in/corporateworld/"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 hover:bg-primary/20 text-muted-foreground hover:text-primary transition-all duration-300"
@@ -116,7 +116,7 @@ export default function Footer({
             <Twitter className="w-6 h-6" />
           </a>
           <a
-            href="https://facebook.com/fusioncloud"
+            href="https://www.facebook.com/people/Corporate-World-Business-Solutions/100069989952856/"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 hover:bg-accent/20 text-muted-foreground hover:text-accent transition-all duration-300"
@@ -124,7 +124,7 @@ export default function Footer({
             <Facebook className="w-6 h-6" />
           </a>
           <a
-            href="https://instagram.com/fusioncloud"
+            href="https://www.facebook.com/321354632134813/videos/2463406997039205/?vh=e&fs=e&mibextid=wwXIfr&rdid=Y9w19IBCntfYBHab#"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 hover:bg-primary/20 text-muted-foreground hover:text-primary transition-all duration-300"
