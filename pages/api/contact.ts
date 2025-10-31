@@ -54,17 +54,71 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const { name, email, number, country, subject, inquiry } = req.body;
 
   const html = `
-    <div style="font-family: Arial, sans-serif; color: #222;">
-      <h2>New Contact Inquiry</h2>
-      <table style="border-collapse: collapse;">
-        <tr><td style="font-weight:bold;">Name:</td><td>${name}</td></tr>
-        <tr><td style="font-weight:bold;">Email:</td><td>${email}</td></tr>
-        <tr><td style="font-weight:bold;">Number:</td><td>${number}</td></tr>
-        <tr><td style="font-weight:bold;">Country:</td><td>${country}</td></tr>
-        <tr><td style="font-weight:bold;">Subject:</td><td>${subject}</td></tr>
-        <tr><td style="font-weight:bold;">Inquiry:</td><td>${inquiry}</td></tr>
-      </table>
-    </div>
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+          @media only screen and (max-width: 620px) {
+            .content {
+              width: 100% !important;
+              padding: 0 !important;
+            }
+          }
+        </style>
+      </head>
+      <body style="margin: 0; padding: 0; background-color: #f9fafb; font-family: Arial, sans-serif;">
+        <div class="content" style="max-width: 620px; margin: 0 auto; padding: 20px;">
+          <div style="background-color: white; border-radius: 8px; padding: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: 30px;">
+              <h1 style="color: #0f172a; margin: 0; font-size: 24px; font-weight: 600;">New Contact Inquiry</h1>
+              <p style="color: #64748b; margin-top: 8px;">A new inquiry has been received from the contact form.</p>
+            </div>
+            
+            <!-- Content -->
+            <div style="margin-bottom: 30px;">
+              <div style="margin-bottom: 20px; padding: 15px; background-color: #f8fafc; border-radius: 6px;">
+                <table style="width: 100%; border-collapse: collapse;">
+                  <tr style="margin-bottom: 12px; display: block;">
+                    <td style="color: #475569; font-size: 14px; width: 100px;">Name:</td>
+                    <td style="color: #0f172a; font-weight: 500;">${name}</td>
+                  </tr>
+                  <tr style="margin-bottom: 12px; display: block;">
+                    <td style="color: #475569; font-size: 14px;">Email:</td>
+                    <td style="color: #0f172a; font-weight: 500;">${email}</td>
+                  </tr>
+                  <tr style="margin-bottom: 12px; display: block;">
+                    <td style="color: #475569; font-size: 14px;">Number:</td>
+                    <td style="color: #0f172a; font-weight: 500;">${number}</td>
+                  </tr>
+                  <tr style="margin-bottom: 12px; display: block;">
+                    <td style="color: #475569; font-size: 14px;">Country:</td>
+                    <td style="color: #0f172a; font-weight: 500;">${country}</td>
+                  </tr>
+                  <tr style="margin-bottom: 12px; display: block;">
+                    <td style="color: #475569; font-size: 14px;">Subject:</td>
+                    <td style="color: #0f172a; font-weight: 500;">${subject}</td>
+                  </tr>
+                </table>
+              </div>
+              
+              <div style="background-color: #f8fafc; border-radius: 6px; padding: 15px;">
+                <p style="color: #475569; font-size: 14px; margin: 0 0 8px 0;">Message:</p>
+                <p style="color: #0f172a; margin: 0; white-space: pre-wrap;">${inquiry}</p>
+              </div>
+            </div>
+            
+            <!-- Footer -->
+            <div style="text-align: center; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+              <p style="color: #64748b; font-size: 14px; margin: 0;">
+                © ${new Date().getFullYear()} Fusion Cloud Trainings. All rights reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </body>
+    </html>
   `;
 
   const text = `New Contact Inquiry\n\nName: ${name}\nEmail: ${email}\nNumber: ${number}\nCountry: ${country}\nSubject: ${subject}\nInquiry: ${inquiry}`;

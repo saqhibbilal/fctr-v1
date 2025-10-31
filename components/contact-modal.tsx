@@ -11,22 +11,50 @@ import * as z from 'zod';
 import { toast } from '@/hooks/use-toast';
 
 const countries = [
-  { value: 'us', label: 'United States' },
-  { value: 'uk', label: 'United Kingdom' },
-  { value: 'ca', label: 'Canada' },
-  { value: 'au', label: 'Australia' },
-  { value: 'nz', label: 'New Zealand' },
-  { value: 'in', label: 'India' },
-  { value: 'sg', label: 'Singapore' },
-  { value: 'ae', label: 'UAE' },
+  { value: 'us', label: 'United States', code: '+1' },
+  { value: 'uk', label: 'United Kingdom', code: '+44' },
+  { value: 'ca', label: 'Canada', code: '+1' },
+  { value: 'au', label: 'Australia', code: '+61' },
+  { value: 'nz', label: 'New Zealand', code: '+64' },
+  { value: 'in', label: 'India', code: '+91' },
+  { value: 'sg', label: 'Singapore', code: '+65' },
+  { value: 'ae', label: 'UAE', code: '+971' },
 ];
 
 const formSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
-  phone: z.string().min(7, 'Please enter a valid phone number'),
-  country: z.string().min(1, 'Please select your country'),
-  message: z.string().min(10, 'Message must be at least 10 characters'),
+  name: z.string()
+    .min(2, 'Name must be at least 2 characters')
+    .max(50, 'Name must be less than 50 characters')
+    .regex(/^[a-zA-Z\s]*$/, 'Name can only contain letters and spaces'),
+  
+  email: z.string()
+    .min(1, 'Email is required')
+    .email('Invalid email address')
+    .regex(
+      /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+      'Please enter a valid email address'
+    ),
+  
+  phone: z.string()
+    .min(1, 'Phone number is required')
+    .refine((val) => {
+      // Remove all non-digit characters for validation
+      const digitsOnly = val.replace(/\D/g, '');
+      return digitsOnly.length >= 7 && digitsOnly.length <= 15;
+    }, 'Phone number must be between 7 and 15 digits')
+    .refine((val) => {
+      const country = countries.find(c => val.startsWith(c.code));
+      return !!country;
+    }, 'Phone number must start with a valid country code'),
+  
+  country: z.string()
+    .min(1, 'Please select your country')
+    .refine((val) => countries.some(c => c.value === val), 'Please select a valid country'),
+  
+  message: z.string()
+    .min(10, 'Message must be at least 10 characters')
+    .max(1000, 'Message must be less than 1000 characters')
+    .refine((val) => val.trim().length > 0, 'Message cannot be empty'),
 });
 
 type ContactFormValues = z.infer<typeof formSchema>;
@@ -67,24 +95,27 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
       });
       if (response.ok) {
         toast({
-          title: 'Message sent!',
-          description: 'Your inquiry has been sent successfully. We will get back to you soon.',
+          title: "Message Sent Successfully",
+          description: "Thank you for reaching out. Our team will get back to you within 24-48 hours.",
+          className: "border-primary/50 bg-primary/10 dark:border-primary/30 dark:bg-primary/20",
         });
         form.reset();
         onClose();
       } else {
-        const err = await response.json();
+        const errorData = await response.json();
         toast({
           title: 'Error',
-          description: err.error || 'Failed to send your message. Please try again later.',
+          description: errorData.error || 'Failed to send your message. Please try again later.',
           variant: 'destructive',
+          className: "bg-red-50 dark:bg-red-900 border-red-200 dark:border-red-800",
         });
       }
     } catch (error) {
       toast({
-        title: 'Error',
+        title: "Error",
         description: 'Failed to send your message. Please try again later.',
-        variant: 'destructive',
+        variant: "destructive",
+        className: "bg-red-50 dark:bg-red-900 border-red-200 dark:border-red-800",
       });
     } finally {
       setIsSubmitting(false);
@@ -135,7 +166,24 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   <FormItem>
                     <FormLabel>Phone Number</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g. +1 555 555 555" {...field} />
+                          <Input 
+                            placeholder={`${countries.find(c => c.value === form.getValues().country)?.code || 'Select country first'} Phone number`}
+                            {...field}
+                            onChange={(e) => {
+                              let value = e.target.value;
+                              const selectedCountry = countries.find(c => c.value === form.getValues().country);
+                              
+                              // If country is selected and phone doesn't start with country code
+                              if (selectedCountry && !value.startsWith(selectedCountry.code)) {
+                                value = selectedCountry.code + value;
+                              }
+                              
+                              // Only allow digits, plus sign, and spaces
+                              value = value.replace(/[^\d+\s]/g, '');
+                              
+                              field.onChange(value);
+                            }}
+                          />
                         </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -145,11 +193,11 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 control={form.control}
                 name="country"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="space-y-1">
                     <FormLabel>Country</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
-                        <SelectTrigger>
+                        <SelectTrigger className="w-full bg-background">
                           <SelectValue placeholder="Select your country" />
                         </SelectTrigger>
                       </FormControl>
