@@ -25,7 +25,7 @@ const courses = [
     ],
     outcomes:
       "Develop practical skills in configuring, analyzing, and optimizing Oracle Financials Cloud using AI and automation for better financial visibility and compliance.",
-    registerUrl: "https://forms.google.com/dummy-financials-registration",
+    registerUrl: "https://forms.gle/fw4b2ijQ4wRkuUCZ7",
   },
   {
     title: "Oracle SCM Cloud with AI",
@@ -49,7 +49,7 @@ const courses = [
     ],
     outcomes:
       "Learn how to configure and utilize Oracle SCM Cloud modules with AI capabilities to drive cost efficiency, reduce risk, and improve supply chain agility.",
-    registerUrl: "https://forms.google.com/dummy-scm-registration",
+    registerUrl: "https://forms.gle/fw4b2ijQ4wRkuUCZ7",
   },
   {
     title: "Oracle Cloud HCM",
@@ -72,7 +72,7 @@ const courses = [
     ],
     outcomes:
       "Acquire hands-on knowledge of Oracle HCM's time and absence solutions to enhance workforce efficiency, compliance, and data-driven HR operations.",
-    registerUrl: "https://forms.google.com/dummy-hcm-registration",
+    registerUrl: "https://forms.gle/fw4b2ijQ4wRkuUCZ7",
   },
   {
     title: "AI for Business",
@@ -96,7 +96,7 @@ const courses = [
     ],
     outcomes:
       "Gain a practical understanding of how AI and GenAI reshape operations, enabling faster, smarter, and data-informed decisions across business functions.",
-    registerUrl: "https://forms.google.com/dummy-aiops-registration",
+    registerUrl: "https://forms.gle/fw4b2ijQ4wRkuUCZ7",
   },
   {
     title: "Data Analysis and Visualization",
@@ -120,7 +120,7 @@ const courses = [
     ],
     outcomes:
       "Build confidence in turning data into insights through visualization and analytics — ready for roles in data analysis, BI, and reporting.",
-    registerUrl: "https://forms.google.com/dummy-dataviz-registration",
+    registerUrl: "https://forms.gle/fw4b2ijQ4wRkuUCZ7",
   },
   {
     title: "Data Engineering",
@@ -144,7 +144,7 @@ const courses = [
     ],
     outcomes:
       "Develop an applied understanding of modern data engineering workflows and cloud-based architectures commonly used in enterprise data teams.",
-    registerUrl: "https://forms.google.com/dummy-dataeng-registration",
+    registerUrl: "https://forms.gle/fw4b2ijQ4wRkuUCZ7",
   },
 ]
 
