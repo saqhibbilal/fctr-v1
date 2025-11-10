@@ -67,11 +67,9 @@ export default function Footer({
             <h4 className="font-semibold text-foreground mb-4">Contact</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                5851 Legacy Cir 6th Floor<br />
-                Plano, TX 75024<br />
+                Frisco, Texas<br />
                 United States
               </li>
-              <li>Phone: +1 800-256-3312</li>
               <li>Email: <a href="mailto:admin@fusioncloudtrainings.com" className="underline hover:text-primary">admin@fusioncloudtrainings.com</a></li>
             </ul>
           </div>
